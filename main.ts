@@ -4,6 +4,9 @@ input.onButtonPressed(Button.A, function () {
             led.unplot(pos + 1, 4)
             pos += -1
             led.plot(pos - 1, 4)
+            if (pos - 1 == lista[4]) {
+                lista.pop()
+            }
         }
     }
 })
@@ -13,15 +16,18 @@ input.onButtonPressed(Button.B, function () {
             led.unplot(pos - 1, 4)
             pos += 1
             led.plot(pos + 1, 4)
+            if (pos + 1 == lista[4]) {
+                lista.pop()
+            }
         }
     }
 })
-let list = 0
 let listPos = 0
 let score = 0
 let skada = 0
 let pos = 0
 let lista: number[] = []
+lista = []
 pos = 2
 led.plot(pos - 1, 4)
 led.plot(pos, 4)
@@ -55,23 +61,26 @@ basic.forever(function () {
             led.plot(värde, listPos)
             listPos += 1
         }
-        list = bomb[bomb.length - 1]
         if (lista.length > 5) {
+            lista.pop()
+        }
+        if (lista.length > 4) {
             if (lista[4] < pos - 1 || lista[4] > pos + 1) {
-                if (bomb[bomb.length - 1] > 3) {
+                if (bomb[bomb.length - 1] == 4) {
                     score += 1
+                    lista.pop()
                 } else {
                     skada += 1
                 }
             } else {
-                if (bomb[bomb.length - 1] > 3) {
+                if (bomb[bomb.length - 1] == 4) {
                     skada += 1
                     bomb.pop()
+                    lista.pop()
                 } else {
                     score += 1
                 }
             }
-            lista.pop()
         }
         listPos = 0
         if (skada == 3) {

@@ -48,7 +48,7 @@ basic.forever(function () {
         led.plot(pos + 1, 4)
         listPos = 0
         lista.unshift(randint(0, 4))
-        if (randint(0, 4) == 0) {
+        if (randint(0, 4) == 0 && lista[0] != 2) {
             bomb.unshift(0)
         }
         for (let värde of lista) {
@@ -91,6 +91,9 @@ basic.forever(function () {
     control.waitMicros(100000)
     for (let value of bomb) {
         led.unplot(lista[value], value)
+        led.plot(pos - 1, 4)
+        led.plot(pos, 4)
+        led.plot(pos + 1, 4)
     }
     control.waitMicros(50000)
 })
